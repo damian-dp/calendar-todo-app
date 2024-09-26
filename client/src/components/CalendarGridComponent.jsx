@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 const CalendarGrid = ({ currentDate }) => {
 	const [weekDates, setWeekDates] = useState([]);
+	const timeSlotRef = useRef(null);
 
 	useEffect(() => {
 		const today = new Date(currentDate);
@@ -18,6 +19,28 @@ const CalendarGrid = ({ currentDate }) => {
 		setWeekDates(dates);
 	}, [currentDate]);
 
+	useEffect(() => {
+		const scrollToCurrentTime = () => {
+			if (timeSlotRef.current) {
+				const now = new Date();
+				const currentHour = now.getHours();
+				const scrollPosition =
+					((currentHour - 1) * 10 * window.innerHeight) / 100;
+				const middleOffset = window.innerHeight / 2;
+				// Scroll an additional 20% of the viewport height
+				const additionalScroll = window.innerHeight * 0.3;
+				timeSlotRef.current.scrollTop =
+					scrollPosition - middleOffset + additionalScroll;
+			}
+		};
+
+		// Delay the scroll to ensure the component has rendered
+		const timeoutId = setTimeout(scrollToCurrentTime, 100);
+
+		// Clean up the timeout on component unmount
+		return () => clearTimeout(timeoutId);
+	}, []);
+
 	const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 	const hours = Array.from({ length: 24 }, (_, i) => i);
 
@@ -26,6 +49,41 @@ const CalendarGrid = ({ currentDate }) => {
 		{ id: 2, title: "Pay Day", start: 1, end: 1, color: "#feebc8" },
 		{ id: 3, title: "Another Event", start: 4, end: 4, color: "#feebc8" },
 	];
+
+	const events = [
+		{
+			id: 1,
+			title: "Afternoon Meeting",
+			start: 15,
+			end: 17,
+			day: 1,
+			color: "var(--category-color-1)",
+		},
+		{
+			id: 2,
+			title: "Long Event",
+			start: 10,
+			end: 15,
+			day: 3,
+			color: "var(--category-color-2)",
+		},
+		{
+			id: 3,
+			title: "Short Event",
+			start: 14,
+			end: 15,
+			day: 5,
+			color: "var(--category-color-3)",
+		},
+	];
+
+	const getEventStyle = (event) => {
+		return {
+			gridArea: `${event.start + 1} / ${event.day + 2} / span ${
+				event.end - event.start
+			} / span 1`,
+		};
+	};
 
 	return (
 		<div className="calendar-grid-container">
@@ -61,22 +119,26 @@ const CalendarGrid = ({ currentDate }) => {
 					</div>
 				</div>
 
-				<div className="time-slots">
+				<div className="time-slots" ref={timeSlotRef}>
 					{hours.map((hour) => (
 						<React.Fragment key={hour}>
 							<div className="time-slot">{hour === 0 ? "" : `${hour}:00`}</div>
 							{weekDates.map((date, index) => (
-								<div key={`${index}-${hour}`} className="day-slot">
-									{(date.getDay() === 1 || date.getDay() === 3 || date.getDay() === 6) &&
-										hour === 15 && (
-											<div className="event afternoon-meeting">
-												Afternoon Meeting
-												<br />3 pm - 5 pm
-											</div>
-										)}
-								</div>
+								<div key={`${index}-${hour}`} className="day-slot"></div>
 							))}
 						</React.Fragment>
+					))}
+					{events.map((event) => (
+						<div key={event.id} className="event" style={getEventStyle(event)}>
+							<div
+								className="event-content"
+								style={{ backgroundColor: event.color }}
+							>
+								{event.title}
+								<br />
+								{`${event.start}:00 - ${event.end}:00`}
+							</div>
+						</div>
 					))}
 				</div>
 			</div>

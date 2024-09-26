@@ -1,0 +1,92 @@
+.settings-container {
+    position: relative;
+	padding: 20px;
+	background-color: var(--primary-background-color);
+	color: var(--primary-text-color);
+}
+
+.settings-container h2 {
+	margin-bottom: 20px;
+}
+
+.setting-item {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 20px;
+}
+
+.toggle-switch {
+	position: relative;
+	display: inline-block;
+	width: 60px;
+	height: 34px;
+}
+
+.toggle-switch input {
+	opacity: 0;
+	width: 0;
+	height: 0;
+}
+
+.slider {
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #ccc;
+	transition: 0.4s;
+	border-radius: 34px;
+}
+
+.slider:before {
+	position: absolute;
+	content: "";
+	height: 26px;
+	width: 26px;
+	left: 4px;
+	bottom: 4px;
+	background-color: white;
+	transition: 0.4s;
+	border-radius: 50%;
+}
+
+input:checked + .slider {
+	background-color: #2196f3;
+}
+
+input:checked + .slider:before {
+	transform: translateX(26px);
+}
+
+.logout-button {
+	background-color: #ff4d4f;
+	color: white;
+	border: none;
+	padding: 10px 20px;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 16px;
+	transition: background-color 0.3s;
+}
+
+.logout-button:hover {
+	background-color: #ff7875;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+	cursor: pointer;
+	color: var(--secondary-text-color);
+	font-size: 24px;
+	background: none;
+	border: none;
+}
+
+.close-button:hover {
+	color: var(--primary-text-color);
+}

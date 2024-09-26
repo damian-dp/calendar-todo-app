@@ -27,7 +27,7 @@ app.use(
 	cors({
 		origin: [
 			process.env.FRONTEND_URL,
-			"http://localhost:5500",
+			"http://localhost:5173", // Updated for Vite's default port
 			"https://dp-calendar.vercel.app",
 		],
 		methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
@@ -76,12 +76,12 @@ app.use("/api/categories", categoryRoutes);
 app.use("/api/invites", inviteRoutes);
 app.use("/api/settings", settingsRoutes);
 
-// Serve static files from the frontend folder
-app.use(express.static(path.join(__dirname, "../frontend")));
+// Serve static files from the React build folder
+app.use(express.static(path.join(__dirname, "../../client/dist")));
 
-// Catch-all route
+// Catch-all route for React Router
 app.get("*", (req, res) => {
-	res.sendFile(path.join(__dirname, "../frontend/index.html"));
+	res.sendFile(path.join(__dirname, "../../client/dist/index.html"));
 });
 
 // Error handling middleware

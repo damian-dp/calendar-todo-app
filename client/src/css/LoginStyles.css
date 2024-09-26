@@ -1,0 +1,62 @@
+.login-form {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.form-group {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+}
+
+.form-group label {
+	font-size: 14px;
+	font-weight: 500;
+	color: var(--secondary-text-color);
+}
+
+.form-group input {
+	padding: 10px;
+	border: 1px solid var(--border-color);
+	border-radius: 4px;
+	font-size: 16px;
+}
+
+.submit-button {
+	background-color: #1a73e8;
+	border: none;
+	padding: 10px;
+	border-radius: 4px;
+	font-size: 16px;
+	font-weight: 500;
+	cursor: pointer;
+	transition: opacity 0.2s;
+    margin-top: 20px;
+    color: white
+}
+
+.submit-button:hover {
+	opacity: 0.8;
+}
+
+.switch-form-button {
+	background: none;
+	border: none;
+	font-size: 14px;
+	cursor: pointer;
+	padding: 5px;
+	margin-top: 10px;
+	text-align: center;
+	color: var(--secondary-text-color);
+    transition: color 0.2s;
+}
+
+.switch-form-button:hover {
+	text-decoration: underline;
+    color: var(--primary-text-color);
+}
+
+.modal-body {
+	margin-top: 10px;
+}

@@ -8,7 +8,7 @@ import {
 	Settings,
 } from "lucide-react";
 
-const Header = ({ currentDate, navigateWeek, goToToday }) => {
+const Header = ({ currentDate, navigateWeek, goToToday, toggleSettings }) => {
 	const [dateRange, setDateRange] = useState("");
 
 	useEffect(() => {
@@ -70,7 +70,7 @@ const Header = ({ currentDate, navigateWeek, goToToday }) => {
 				<button className="icon-button">
 					<Mail />
 				</button>
-				<button className="icon-button">
+				<button className="icon-button" onClick={toggleSettings}>
 					<Settings />
 				</button>
 			</div>
