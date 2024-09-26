@@ -1,19 +1,12 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import Layout from './components/LayoutComponent'
-import Home from './pages/HomePage'
-import Calendar from './pages/CalendarPage'
-import TodoList from './pages/TodoListPage'
+import CalendarPage from './pages/CalendarPage.jsx'
 
 function App() {
   return (
     <Router>
-      <Layout>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/calendar" element={<Calendar />} />
-          <Route path="/todo" element={<TodoList />} />
+          <Route path="/" element={<CalendarPage />} />
         </Routes>
-      </Layout>
     </Router>
   )
 }
