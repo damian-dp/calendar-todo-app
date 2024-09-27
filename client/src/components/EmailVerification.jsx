@@ -5,11 +5,12 @@ const EmailVerification = () => {
 	const [verificationStatus, setVerificationStatus] = useState('Verifying...');
 	const { token } = useParams();
 	const navigate = useNavigate();
+	const apiUrl = import.meta.env.VITE_API_URL;
 
 	useEffect(() => {
 		const verifyEmail = async () => {
 			try {
-				const response = await fetch(`/api/users/verify/${token}`, {
+				const response = await fetch(`${apiUrl}/api/users/verify/${token}`, {
 					method: 'GET',
 				});
 				const data = await response.json();
@@ -27,7 +28,7 @@ const EmailVerification = () => {
 		};
 
 		verifyEmail();
-	}, [token, navigate]);
+	}, [token, navigate, apiUrl]);
 
 	return (
 		<div className="verification-container">

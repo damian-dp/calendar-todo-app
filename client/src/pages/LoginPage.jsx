@@ -9,10 +9,11 @@ const LoginPage = () => {
 	const [password, setPassword] = useState("");
 	const [message, setMessage] = useState("");
 	const navigate = useNavigate();
+	const apiUrl = import.meta.env.VITE_API_URL;
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		const endpoint = isLogin ? "/api/users/login" : "/api/users/signup";
+		const endpoint = isLogin ? `${apiUrl}/api/users/login` : `${apiUrl}/api/users/signup`;
 
 		try {
 			const response = await fetch(endpoint, {

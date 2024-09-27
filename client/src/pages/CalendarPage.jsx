@@ -29,7 +29,7 @@ const CalendarPage = () => {
   };
 
   const apiUrl = import.meta.env.VITE_API_URL;
-  // This should resolve to https://dp-calendar-api.vercel.app/api
+  // This should resolve to https://dp-calendar-api.vercel.app
 
   return (
     <div className="calendar-container">
