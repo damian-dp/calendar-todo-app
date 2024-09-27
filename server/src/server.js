@@ -16,7 +16,7 @@ const inviteRoutes = require("./routes/inviteRoutes");
 const settingsRoutes = require("./routes/settingsRoutes");
 
 const app = express();
-app.set('trust proxy', 1);
+app.set("trust proxy", 1);
 const PORT = process.env.PORT || 3000;
 const FUNCTION_TIMEOUT = process.env.VERCEL_FUNCTION_TIMEOUT || 10;
 
@@ -69,8 +69,13 @@ const connectToDatabase = async () => {
 };
 
 // Routes
-app.get('/', (req, res) => {
-	res.status(200).json({ message: 'Server is running' });
+app.get("/", (req, res) => {
+	res.status(200).json({ message: "Server is running" });
+});
+
+// Add this route before your other routes
+app.get("/favicon.ico", (req, res) => {
+	res.sendStatus(204); // No Content
 });
 
 app.use("/api/users", authRoutes);
@@ -85,9 +90,9 @@ app.use("/api/settings", settingsRoutes);
 app.use((err, req, res, next) => {
 	console.error(err.stack);
 	res.status(500).json({
-		status: 'error',
-		message: 'An unexpected error occurred on the server',
-		error: process.env.NODE_ENV === 'development' ? err.message : undefined
+		status: "error",
+		message: "An unexpected error occurred on the server",
+		error: process.env.NODE_ENV === "development" ? err.message : undefined,
 	});
 });
 
@@ -100,7 +105,7 @@ const startServer = async () => {
 module.exports = startServer();
 
 // You can keep the listen call for local development
-if (process.env.NODE_ENV !== 'production') {
-	const PORT = process.env.PORT || 3000
-	app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
+if (process.env.NODE_ENV !== "production") {
+	const PORT = process.env.PORT || 3000;
+	app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 }
