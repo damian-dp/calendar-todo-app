@@ -67,15 +67,14 @@ const connectToDatabase = async () => {
 		process.exit(1);
 	}
 };
+// Add this route before your other routes
+app.get("/favicon.ico", "/favicon.png", (req, res) => {
+	res.sendStatus(204); // No Content
+});
 
 // Routes
 app.get("/", (req, res) => {
 	res.status(200).json({ message: "Server is running" });
-});
-
-// Add this route before your other routes
-app.get("/favicon.ico", (req, res) => {
-	res.sendStatus(204); // No Content
 });
 
 app.use("/api/users", authRoutes);
