@@ -6,9 +6,7 @@ export default defineConfig({
 	plugins: [react()],
 	server: {
 		port: 5500,
-		proxy: {
-			"/api": "http://localhost:3000",
-		},
+		// Remove the proxy configuration as it's not needed for production
 	},
 	// Add this section for proper routing
 	resolve: {

@@ -16,6 +16,7 @@ const inviteRoutes = require("./routes/inviteRoutes");
 const settingsRoutes = require("./routes/settingsRoutes");
 
 const app = express();
+app.set('trust proxy', 1);
 const PORT = process.env.PORT || 3000;
 const FUNCTION_TIMEOUT = process.env.VERCEL_FUNCTION_TIMEOUT || 10;
 
@@ -68,6 +69,10 @@ const connectToDatabase = async () => {
 };
 
 // Routes
+app.get('/', (req, res) => {
+	res.status(200).json({ message: 'Server is running' });
+});
+
 app.use("/api/users", authRoutes);
 app.use("/api/events", eventRoutes);
 app.use("/api/todos", todoRoutes);
@@ -76,22 +81,23 @@ app.use("/api/categories", categoryRoutes);
 app.use("/api/invites", inviteRoutes);
 app.use("/api/settings", settingsRoutes);
 
-// Serve static files from the React build folder
-app.use(express.static(path.join(__dirname, "../../client/dist")));
-
-// Catch-all route for React Router
-app.get("*", (req, res) => {
-	res.sendFile(path.join(__dirname, "../../client/dist/index.html"));
-});
-
 // Error handling middleware
 app.use((err, req, res, next) => {
 	console.error(err.stack);
-	res.status(500).send("Something broke!");
+	res.status(500).json({
+		status: 'error',
+		message: 'An unexpected error occurred on the server',
+		error: process.env.NODE_ENV === 'development' ? err.message : undefined
+	});
 });
 
 // Instead of app.listen(), export the app
-module.exports = app;
+const startServer = async () => {
+	await connectToDatabase();
+	return app;
+};
+
+module.exports = startServer();
 
 // You can keep the listen call for local development
 if (process.env.NODE_ENV !== 'production') {
