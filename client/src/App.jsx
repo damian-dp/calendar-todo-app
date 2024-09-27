@@ -6,6 +6,7 @@ import ProtectedRoute from './components/ProtectedRoute.jsx'
 import EmailVerification from './components/EmailVerification.jsx'
 import ModalComponent from './components/ModalComponent.jsx'
 import { updateFavicon } from './utils/faviconUtils';
+import { updateThemeColor } from './utils/themeUtils';
 
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(() => {
@@ -17,6 +18,7 @@ function App() {
     const updateTheme = (dark) => {
       setIsDarkMode(dark);
       updateFavicon(dark);
+      updateThemeColor(dark);
       document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
     };
 
@@ -31,6 +33,7 @@ function App() {
 
   useEffect(() => {
     updateFavicon(isDarkMode);
+    updateThemeColor(isDarkMode);
   }, [isDarkMode]);
 
   return (
