@@ -90,13 +90,11 @@ app.use((err, req, res, next) => {
 	res.status(500).send("Something broke!");
 });
 
-// Start server
-connectToDatabase()
-	.then(() => {
-		app.listen(PORT, () => {
-			console.log(`Server is running on port ${PORT}`);
-		});
-	})
-	.catch((error) => {
-		console.error("Failed to connect to the database:", error);
-	});
+// Instead of app.listen(), export the app
+module.exports = app;
+
+// You can keep the listen call for local development
+if (process.env.NODE_ENV !== 'production') {
+	const PORT = process.env.PORT || 3000
+	app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
+}
