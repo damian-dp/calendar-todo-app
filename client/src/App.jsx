@@ -4,8 +4,17 @@ import LoginPage from './pages/LoginPage.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
 import EmailVerification from './components/EmailVerification.jsx'
 import ModalComponent from './components/ModalComponent.jsx'
+import React, { useEffect } from 'react';
+import { updateFavicon } from './utils/faviconUtils';
 
 function App() {
+  const [isDarkMode, setIsDarkMode] = React.useState(false);
+
+  useEffect(() => {
+    // Update favicon when theme changes
+    updateFavicon(isDarkMode);
+  }, [isDarkMode]);
+
   return (
     <Router>
       <Routes>
