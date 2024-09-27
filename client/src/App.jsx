@@ -14,17 +14,23 @@ function App() {
   });
 
   useEffect(() => {
-    updateFavicon(isDarkMode);
+    const updateTheme = (dark) => {
+      setIsDarkMode(dark);
+      updateFavicon(dark);
+      document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+    };
+
+    updateTheme(isDarkMode);
     
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    const handleChange = (e) => {
-      const newIsDarkMode = e.matches;
-      setIsDarkMode(newIsDarkMode);
-      updateFavicon(newIsDarkMode);
-    };
+    const handleChange = (e) => updateTheme(e.matches);
 
     mediaQuery.addListener(handleChange);
     return () => mediaQuery.removeListener(handleChange);
+  }, []);
+
+  useEffect(() => {
+    updateFavicon(isDarkMode);
   }, [isDarkMode]);
 
   return (

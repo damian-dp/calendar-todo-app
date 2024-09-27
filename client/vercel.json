@@ -1,22 +1,50 @@
 {
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
-  ],
-  "headers": [
-    {
-      "source": "/favicon.ico",
-      "headers": [{ "key": "Content-Type", "value": "image/x-icon" }]
-    },
-    {
-      "source": "/(favicon-16x16|favicon-32x32).png",
-      "headers": [{ "key": "Content-Type", "value": "image/png" }]
-    },
-    {
-      "source": "/apple-touch-icon.png",
-      "headers": [{ "key": "Content-Type", "value": "image/png" }]
-    }
-  ]
+	"rewrites": [
+		{
+			"source": "/(.*)",
+			"destination": "/index.html"
+		}
+	],
+	"headers": [
+		{
+			"source": "/favicon.ico",
+			"headers": [
+				{ "key": "Content-Type", "value": "image/x-icon" },
+				{
+					"key": "Cache-Control",
+					"value": "no-cache, no-store, must-revalidate"
+				}
+			]
+		},
+		{
+			"source": "/(favicon-16x16|favicon-32x32|favicon-dark|favicon-light).png",
+			"headers": [
+				{ "key": "Content-Type", "value": "image/png" },
+				{
+					"key": "Cache-Control",
+					"value": "no-cache, no-store, must-revalidate"
+				}
+			]
+		},
+		{
+			"source": "/apple-touch-icon.png",
+			"headers": [
+				{ "key": "Content-Type", "value": "image/png" },
+				{
+					"key": "Cache-Control",
+					"value": "no-cache, no-store, must-revalidate"
+				}
+			]
+		},
+		{
+			"source": "/safari-pinned-tab.svg",
+			"headers": [
+				{ "key": "Content-Type", "value": "image/svg+xml" },
+				{
+					"key": "Cache-Control",
+					"value": "no-cache, no-store, must-revalidate"
+				}
+			]
+		}
+	]
 }
